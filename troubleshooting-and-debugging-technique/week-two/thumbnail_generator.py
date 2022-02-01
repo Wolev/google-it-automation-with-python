@@ -35,14 +35,14 @@ def main():
     if not os.path.exists('thumbnails'):
         os.mkdir('thumbnails')
 
-    excutor = futures.ThreadPoolExecutor()
+    executor = futures.ThreadPoolExecutor()
     for root, _, files in os.walk('images'):
         for basename in progress_bar(files):
             if not basename.endswith('.jpg'):
                 continue
-            excutor.submit(process_file, root, basename)
+            executor.submit(process_file, root, basename)
     print('Waiting for all threads to finish.')
-    excutor.shutdown()
+    executor.shutdown()
     return 0
 
 if __name__ == "__main__":
